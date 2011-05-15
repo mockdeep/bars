@@ -3,18 +3,11 @@
 # Read your ~/bars.yaml file and output the results
 
 require 'bars'
+require 'trollop'
 
-options = {}
-ARGV.each_with_index do |arg, index|
-  if arg == '-p'
-    options[:print_mode] = :percentage
-  elsif arg == '-n'
-    if ARGV[index+1]
-      options[:bar_size] = ARGV[index+1]
-    else
-      raise "you need to enter a number"
-    end
-  end
+options = Trollop::options do
+  opt :percent, "Percentage output", :short => 'q'
+  opt :bar_size, "Set bar size", :short => 'b', :type => :int
 end
 
 bars = Bars.new(options)
