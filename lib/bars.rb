@@ -22,7 +22,7 @@ class Bars
           puts "--> #{task}:"
           done_count = (done.to_f/goal * 20).to_i
           todo_count = 20 - done_count
-          puts "    |#{"+" * (done_count - 1)}|#{"-" * todo_count}|"
+          puts "    |#{"+" * (done_count)}|#{"-" * todo_count}|"
         end
       end
       puts
