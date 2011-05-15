@@ -7,7 +7,7 @@ require 'trollop'
 
 options = Trollop::options do
   opt :percent, "Percentage output", :short => 'q'
-  opt :bar_size, "Set bar size", :short => 'b', :type => :int
+  opt :bar_size, "Set bar size", :short => 'b', :type => :int, :default => 20
 end
 
 bars = Bars.new(options)
