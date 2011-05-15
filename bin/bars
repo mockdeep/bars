@@ -4,5 +4,18 @@
 
 require 'bars'
 
-bars = Bars.new(ARGV)
+options = {}
+ARGV.each_with_index do |arg, index|
+  if arg == '-p'
+    options[:print_mode] = :percentage
+  elsif arg == '-n'
+    if ARGV[index+1]
+      options[:bar_size] = ARGV[index+1]
+    else
+      raise "you need to enter a number"
+    end
+  end
+end
+
+bars = Bars.new(options)
 bars.print

@@ -1,13 +1,9 @@
 require 'yaml'
 
 class Bars
-  def initialize(args=[])
-    if !args.empty? && args.first == '-p'
-      @print_mode = :percentage
-    else
-      @print_mode = :bars
-    end
-
+  def initialize(options={})
+    @print_mode = options.delete(:print_mode) { :bars }
+    @bar_size = options.delete(:bar_size) { 20 }
     @timeframes = YAML.load(File.open(File.expand_path('~/bars.yml')))
   end
 
@@ -16,13 +12,21 @@ class Bars
     @timeframes.each do |timeframe, tasks|
       puts " #{timeframe.capitalize} ".center(30, "*")
       tasks.each do |task, done, goal|
+        done_percent = (done.to_f/goal)
         if @print_mode == :percentage
-          puts "--> #{task}: #{(done.to_f/goal * 100).round}%"
+          puts "--> #{task}: #{(done_percent * 100).floor}%"
         else
           puts "--> #{task}:"
-          done_count = (done.to_f/goal * 20).to_i
-          todo_count = 20 - done_count
-          puts "    |#{"+" * (done_count)}|#{"-" * todo_count}|"
+          done_string = "+" * (done_percent * @bar_size)
+          todo_string = "-" * (@bar_size - done_string.length)
+          if done == 0
+            splitter = '-'
+          elsif done == goal
+            splitter = '+'
+          else
+            splitter = '|'
+          end
+          puts "    |#{done_string}#{splitter}#{todo_string}|"
         end
       end
       puts
