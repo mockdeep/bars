@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# Usage: bars [-p]
+# Read your ~/bars.yaml file and output the results
+
+require 'bars'
+
+bars = Bars.new(ARGV)
+bars.print
