@@ -8,7 +8,7 @@ class Bars
 
   def print(options={})
     print_mode = options.delete(:print_mode) { 'bars' }
-    bar_size   = options.delete(:bar_size) { 20 } - 1
+    line_width = options.delete(:line_width) { 20 } - 1
 
     puts
     @timeframes.each do |timeframe, tasks|
@@ -16,11 +16,13 @@ class Bars
       tasks.each do |task, done, goal|
         done_percent = (done.to_f/goal)
         if print_mode == 'percent'
-          puts "--> #{task}: #{(done_percent * 100).floor}%"
+          left_side = "#{task}:".ljust(line_width)
+          right_side = "#{(done_percent * 100).floor}%".rjust(4)
+          puts "--> #{left_side}#{right_side}"
         else
           puts "--> #{task}:"
-          done_string = "+" * (done_percent * bar_size)
-          todo_string = "-" * (bar_size - done_string.length)
+          done_string = "+" * (done_percent * line_width)
+          todo_string = "-" * (line_width - done_string.length)
           if done == 0
             splitter = '-'
           elsif done == goal

@@ -6,9 +6,9 @@ require 'bars'
 require 'trollop'
 
 options = Trollop::options do
-  opt :print_mode, "Output format, percent or bars", :short => '-p', :default => 'bars'
-  opt :bar_size, "Set bar size", :short => 'b', :type => :int, :default => 20
-  opt :file_path, "File path, default ~/bars.yml", :short => '-f', :default => '~/bars.yml'
+  opt :print_mode, "Output format, percent or bars", :short => 'p', :default => 'bars'
+  opt :line_width, "Set bar size", :short => 'w', :type => :int, :default => 20
+  opt :file_path, "File path, default ~/bars.yml", :short => 'f', :default => '~/bars.yml'
 end
 
 bars = Bars.new(options)
