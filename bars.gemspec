@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{bars}
-  s.version = "0.0.8"
+  s.version = "0.0.9"
   s.date = %q{2011-05-15}
   s.authors = ["Robert Fletcher"]
   s.email = %q{lobatifricha@gmail.com}
@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
     bin/bars
   ]
   s.executables = ["bars"]
+  s.add_dependency('trollop', '>= 1.16.2')
 end
